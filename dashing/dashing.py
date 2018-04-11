@@ -2,9 +2,11 @@
 
 Based on https://github.com/FedericoCeratto/dashing
 """
-from datetime import datetime
 from collections import deque, namedtuple
+from datetime import datetime
+
 from buzio import formatStr
+
 try:
     unichr
 except NameError:
@@ -32,13 +34,13 @@ class Tile(object):
     """Tile Object."""
 
     def __init__(
-        self,
-        title=None,
-        border_color=None,
-        color=0,
-        background_color=7,
-        terminal=None,
-        main=False
+            self,
+            title=None,
+            border_color=None,
+            color=0,
+            background_color=7,
+            terminal=None,
+            main=False
     ):
         """Init class."""
         self.title = title
@@ -107,46 +109,46 @@ class Tile(object):
             tbox.t.color(self.border_color)
         if fill_all_width:
             title = ' ' * margin + self.title + \
-                ' ' * (tbox.w - margin - len(self.title))
+                    ' ' * (tbox.w - margin - len(self.title))
             if ":" in title:
                 print(tbox.t.on_color(self.background_color) +
-                    tbox.t.move(
-                        tbox.x,
-                        tbox.y) +
-                    col +
-                    "".join(
-                        title.split(":")[0]))
+                      tbox.t.move(
+                          tbox.x,
+                          tbox.y) +
+                      col +
+                      "".join(
+                          title.split(":")[0]))
                 print(tbox.t.on_color(self.background_color) +
-                    tbox.t.move(
-                        tbox.x +
-                        tbox.h -
-                        1,
-                        tbox.y +
-                        1) +
-                    col +
-                    title.split(":")[1])
+                      tbox.t.move(
+                          tbox.x +
+                          tbox.h -
+                          1,
+                          tbox.y +
+                          1) +
+                      col +
+                      title.split(":")[1])
             else:
                 print(tbox.t.on_color(self.background_color) + tbox.t.move(tbox.x, tbox.y) + col + title)
         else:
             title = ' ' * margin + self.title + ' ' * margin
             if ":" in title:
                 print(tbox.t.on_color(self.background_color) +
-                    tbox.t.move(
-                        tbox.x,
-                        tbox.y +
-                        margin) +
-                    col +
-                    "".join(
-                        title.split(":")[0]))
+                      tbox.t.move(
+                          tbox.x,
+                          tbox.y +
+                          margin) +
+                      col +
+                      "".join(
+                          title.split(":")[0]))
                 print(tbox.t.on_color(self.background_color) +
-                    tbox.t.move(
-                        tbox.x +
-                        tbox.h -
-                        1,
-                        tbox.y +
-                        1) +
-                    col +
-                    title.split(":")[1])
+                      tbox.t.move(
+                          tbox.x +
+                          tbox.h -
+                          1,
+                          tbox.y +
+                          1) +
+                      col +
+                      title.split(":")[1])
             else:
                 print(tbox.t.on_color(self.background_color) + tbox.t.move(tbox.x, tbox.y + margin) + col + title)
 

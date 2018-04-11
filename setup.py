@@ -12,7 +12,8 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 install_requires = [
-    "blessed"
+    "blessed",
+    "buzio"
 ]
 
 if 'dev' in __version__:
@@ -24,7 +25,7 @@ else:
     version = __version__
 
 setup(
-    name='dashing',
+    name='pydashing',
     version=version,
     description="High-level terminal-based dashboard",
     long_description=long_description,
