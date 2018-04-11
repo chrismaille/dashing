@@ -1,58 +1,10 @@
-Dashing is a library to quickly create terminal-based dashboards in Python.
 
-image:https://raw.githubusercontent.com/FedericoCeratto/dashing/gh-pages/tty.gif[Example]
-
-Similar libraries for other languages: https://github.com/gizak/termui[termui] https://github.com/chjj/blessed[blessed] https://github.com/yaronn/blessed-contrib[blessed-contrib]
-
-=== Dependencies
-
-The link:https://pypi.python.org/pypi/blessed[blessed] library.
-
-=== Installation
-
-[source,bash]
-----
-pip install pydashing
-----
-
-=== Quick mode
-
-If you want to provide a simple UI to a script, Dashing can generate a layout automatically.
-
-
-[source,python]
-----
-import time
-from dashing import QuickDash
-
-def main():
-    d = QuickDash()
-    d.status = "Running..."
-    d.logs.append("Started")
-    for progress in range(100):
-      d.gauges['progess'] = progress
-      if progress % 10 == 0:
-        d.logs.append("Started")
-      time.sleep(0.05)
-
-    d.status = "Done!"
-    time.sleep(1)
-----
-
-
-=== Normal mode
-
-In normal mode you have full control over the UI
-
-.Usage
-[source,python]
-----
 from time import sleep, time
 import math
 
 from blessed import Terminal
 
-from dashing import *
+from dashing.dashing import VSplit, Text, VChart, HChart, HBrailleChart, Log, VGauge, HGauge, HSplit, ColorRangeVGauge
 
 if __name__ == '__main__':
 
@@ -79,7 +31,7 @@ if __name__ == '__main__':
                             border_color=2,
                             colormap=(
                                 (33, 2),
-                                (66, 3),
+                                (66, 4),
                                 (100, 1),
                             )
                         ),
@@ -94,17 +46,18 @@ if __name__ == '__main__':
                     # HBrailleFilledChart(border_color=2, color=2),
                 ),
                 title='Dashing',
+                terminal=term
             )
         log = ui.items[1].items[1]
         vchart = ui.items[1].items[2]
         hchart = ui.items[1].items[3]
         bchart = ui.items[1].items[4]
-        # bfchart = ui.items[1].items[5]
         log.append("0 -----")
         log.append("1 Hello")
         log.append("2 -----")
         prev_time = time()
-        for cycle in range(0, 200):
+
+        for cycle in range(0, 100):
             ui.items[0].items[0].value = int(50 + 49.9 * math.sin(cycle / 80.0))
             ui.items[0].items[1].value = int(50 + 45 * math.sin(cycle / 20.0))
             ui.items[0].items[2].value = int(50 + 45 * math.sin(cycle / 30.0 + 3))
@@ -120,9 +73,6 @@ if __name__ == '__main__':
             vchart.append(50 + 50 * math.sin(cycle / 16.0))
             hchart.append(99.9 * abs(math.sin(cycle / 26.0)))
             bchart.append(50 + 50 * math.sin(cycle / 6.0))
-            # bfchart.append(50 + 50 * math.sin(cycle / 16.0))
             ui.display()
 
-            sleep(1.0/25)
-----
-
+            sleep(0.25)

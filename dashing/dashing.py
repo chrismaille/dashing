@@ -106,9 +106,9 @@ class Tile(object):
             return
         margin = int((tbox.w - len(self.title)) / 20)
         col = '' if self.border_color is None else \
-            tbox.t.color(self.border_color)
+            tbox.t.on_color(self.background_color) + tbox.t.color(self.border_color)
         if fill_all_width:
-            title = ' ' * margin + self.title + \
+            title = tbox.t.on_color(self.background_color) + ' ' * margin + self.title + \
                     ' ' * (tbox.w - margin - len(self.title))
             if ":" in title:
                 print(tbox.t.on_color(self.background_color) +
@@ -130,7 +130,7 @@ class Tile(object):
             else:
                 print(tbox.t.on_color(self.background_color) + tbox.t.move(tbox.x, tbox.y) + col + title)
         else:
-            title = ' ' * margin + self.title + ' ' * margin
+            title = tbox.t.on_color(self.background_color) + ' ' * margin + self.title + ' ' * margin
             if ":" in title:
                 print(tbox.t.on_color(self.background_color) +
                       tbox.t.move(
